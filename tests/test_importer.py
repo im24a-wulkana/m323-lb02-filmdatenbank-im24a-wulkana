@@ -1,7 +1,8 @@
 """Tests für den CSV-Import."""
 
 from app import DEFAULT_DATA_PATH
-from app.importer import RowError, import_movies, load_movies
+from app.importer import RowError, import_movies, load_movies, remove_duplicates
+from app.models import Movie
 
 HEADER = "title,year,genres,director,runtime,rating\n"
 HEAT = "Heat,1995,Action|Krimi,Michael Mann,170,8.3\n"
@@ -36,6 +37,16 @@ def test_import_removes_duplicates_ignoring_case():
     assert [movie.title for movie in result.movies] == ["Heat", "Alien"]
     assert result.movies[0].rating == 8.3
     assert result.duplicates == 1
+
+
+def test_remove_duplicates_keeps_first_occurrence_in_order():
+    heat = Movie("Heat", 1995, ("Action",), "Michael Mann", 170, 8.3)
+    alien = Movie("Alien", 1979, ("Horror",), "Ridley Scott", 117, 8.5)
+    heat_copy = Movie("HEAT", 1995, ("Drama",), "Michael Mann", 170, 5.0)
+    alien_copy = Movie("alien", 1979, ("Horror",), "Ridley Scott", 117, 1.0)
+
+    assert remove_duplicates((heat, alien, heat_copy, alien_copy, heat)) == (heat, alien)
+    assert remove_duplicates(()) == ()
 
 
 def test_import_keeps_same_title_from_other_year():

@@ -37,7 +37,8 @@
 </form>
 
 {% if movies %}
-<p class="summary">{{ movies | length }} Filme · Durchschnitt {{ average }}</p>
+<p class="summary">{{ movies | length }} Filme · Durchschnitt {{ average }} ·
+    <a href="{{ url_for('main.export', **request.args) }}">Als CSV exportieren</a></p>
 <table>
     <thead>
         <tr>

@@ -1,8 +1,9 @@
 """Routen der Filmdatenbank."""
 
-from flask import Blueprint, abort, current_app, render_template, request
+from flask import Blueprint, Response, abort, current_app, render_template, request
 
 from app.catalog import SORT_OPTIONS, all_genres, average_rating, query_from_args, search_catalog
+from app.exporter import export_movies
 from app.recommender import recommend
 from app.statistics import (GROUP_SORTS, decade_report, director_report, genre_report,
                             overview)
@@ -44,6 +45,23 @@ def movies():
         average=average_rating(found),
         genres=all_genres(all_movies),
         sort_options=SORT_OPTIONS,
+    )
+
+
+@main.route("/export")
+def export():
+    """
+    Exportiert die Filme des Katalogs mit denselben Filtern wie die Katalogseite.
+
+    Returns:
+        Response: Die CSV-Datei als Download.
+    """
+    all_movies = current_app.config["IMPORT_RESULT"].movies
+    found = search_catalog(all_movies, query_from_args(request.args))
+    return Response(
+        export_movies(found),
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment; filename=filme.csv"},
     )
 
 
