@@ -1,7 +1,8 @@
 """Empfehlungen ähnlicher Filme, umgesetzt nach docs/design-blatt.md."""
 
 from dataclasses import dataclass
-from functools import partial
+from functools import partial, reduce
+from operator import add
 
 from app.functional import pipe
 from app.models import MAX_RATING, Movie, movie_key
@@ -70,7 +71,8 @@ def similarity_score(base, candidate):
     Returns:
         float: Der Ähnlichkeitswert von 0 bis 100, auf eine Stelle gerundet.
     """
-    return round(sum(part(base, candidate) for part in SCORE_PARTS), 1)
+    part_scores = map(lambda part: part(base, candidate), SCORE_PARTS)
+    return round(reduce(add, part_scores, 0.0), 1)
 
 
 def exclude_movie(movies, base):

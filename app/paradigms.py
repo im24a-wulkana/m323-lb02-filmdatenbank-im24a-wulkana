@@ -23,7 +23,10 @@ class GenreAverageCalculator:
 
     def averages(self):
         """Liefert die Durchschnitte der bisher aufgenommenen Filme."""
-        return {genre: round(self._sums[genre] / self._counts[genre], 2) for genre in sorted(self._sums)}
+        return {
+            genre: round(self._sums[genre] / self._counts[genre], 2)
+            for genre in sorted(self._sums)
+        }
 
 
 def genre_averages_oo(movies):
