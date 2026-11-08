@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% macro group_table(groups, label) %}
+<table>
+    <thead>
+        <tr>
+            <th>{{ label }}</th>
+            <th>Filme</th>
+            <th>Ø Bewertung</th>
+            <th>Gesamtlaufzeit</th>
+            <th>Bester Film</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in groups %}
+        <tr>
+            <td class="group">{{ group.name }}</td>
+            <td>{{ group.count }}</td>
+            <td>{{ "%.2f" | format(group.average_rating) }}</td>
+            <td>{{ group.total_runtime }} min</td>
+            <td>{{ group.best_title }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+{% block title %}Statistik · Filmdatenbank{% endblock %}
+
+{% block content %}
+<h1>Statistik</h1>
+
+{% if overview.count %}
+<p class="summary">
+    {{ overview.count }} Filme · Durchschnitt {{ overview.average_rating }} ·
+    Gesamtlaufzeit {{ overview.total_runtime // 60 }} h {{ overview.total_runtime % 60 }} min
+</p>
+
+<h2>Genres</h2>
+<form class="filters" method="get">
+    <label>Sortierung
+        <select name="sort">
+            {% for value, label in sort_options %}
+            <option value="{{ value }}" {% if sort == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <button type="submit">Anwenden</button>
+</form>
+{{ group_table(genres, "Genre") }}
+
+<h2>Jahrzehnte</h2>
+{{ group_table(decades, "Jahrzehnt") }}
+
+<h2>Regie mit mindestens zwei Filmen</h2>
+{{ group_table(directors, "Regie") }}
+{% else %}
+<p class="summary">Keine Filme vorhanden.</p>
+{% endif %}
+{% endblock %}
