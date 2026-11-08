@@ -1,9 +1,13 @@
 """Routen der Filmdatenbank."""
 
-from flask import Blueprint, Response, abort, current_app, render_template, request
+from flask import (Blueprint, Response, abort, current_app, redirect, render_template, request,
+                   url_for)
 
-from app.catalog import SORT_OPTIONS, all_genres, average_rating, query_from_args, search_catalog
+from app.catalog import (SORT_OPTIONS, all_genres, average_rating, make_lookup, query_from_args,
+                         replace_movie, search_catalog)
 from app.exporter import export_movies
+from app.importer import import_summary
+from app.models import parse_rating, with_rating
 from app.recommender import recommend
 from app.statistics import (GROUP_SORTS, decade_report, director_report, genre_report,
                             overview)
@@ -18,6 +22,33 @@ STATS_SORT_OPTIONS = (
 )
 
 
+def store_movies(config, catalog):
+    """
+    Legt den aktuellen Katalog und seine Suchfunktion in der Konfiguration ab.
+
+    Das ist die einzige Stelle, an der sich der Zustand der App ändert.
+
+    Args:
+        config (flask.Config): Die Konfiguration der App.
+        catalog (tuple[Movie, ...]): Der neue Katalog.
+    """
+    config["MOVIES"] = catalog
+    config["FIND_MOVIE"] = make_lookup(catalog)
+
+
+def current_movies():
+    """Liefert den aktuellen Katalog."""
+    return current_app.config["MOVIES"]
+
+
+def find_movie_or_404(title, year):
+    """Liefert den Film zu Titel und Jahr oder bricht mit 404 ab."""
+    movie = current_app.config["FIND_MOVIE"](title, year)
+    if movie is None:
+        abort(404)
+    return movie
+
+
 @main.route("/")
 def index():
     """
@@ -26,7 +57,8 @@ def index():
     Returns:
         str: Die gerenderte Startseite.
     """
-    return render_template("index.html", result=current_app.config["IMPORT_RESULT"])
+    result = current_app.config["IMPORT_RESULT"]
+    return render_template("index.html", result=result, summary=import_summary(result))
 
 
 @main.route("/movies")
@@ -37,7 +69,7 @@ def movies():
     Returns:
         str: Die gerenderte Katalogseite.
     """
-    all_movies = current_app.config["IMPORT_RESULT"].movies
+    all_movies = current_movies()
     found = search_catalog(all_movies, query_from_args(request.args))
     return render_template(
         "movies.html",
@@ -56,12 +88,21 @@ def export():
     Returns:
         Response: Die CSV-Datei als Download.
     """
-    all_movies = current_app.config["IMPORT_RESULT"].movies
-    found = search_catalog(all_movies, query_from_args(request.args))
+    found = search_catalog(current_movies(), query_from_args(request.args))
     return Response(
         export_movies(found),
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment; filename=filme.csv"},
+    )
+
+
+def render_detail(movie, error=None):
+    """Rendert die Detailseite eines Films mit Empfehlungen."""
+    return render_template(
+        "movie.html",
+        movie=movie,
+        recommendations=recommend(current_movies(), movie),
+        error=error,
     )
 
 
@@ -77,11 +118,26 @@ def movie_detail(year, title):
     Returns:
         str: Die gerenderte Detailseite oder 404, wenn der Film fehlt.
     """
-    movie = current_app.config["FIND_MOVIE"](title, year)
-    if movie is None:
-        abort(404)
-    all_movies = current_app.config["IMPORT_RESULT"].movies
-    return render_template("movie.html", movie=movie, recommendations=recommend(all_movies, movie))
+    return render_detail(find_movie_or_404(title, year))
+
+
+@main.post("/rating")
+def update_rating():
+    """
+    Ändert die Bewertung eines Films, ohne den alten Film zu verändern.
+
+    Returns:
+        Response: Eine Weiterleitung zur Detailseite, bei ungültiger Bewertung
+        die Detailseite mit Fehlermeldung und Status 400.
+    """
+    movie = find_movie_or_404(request.form.get("title", ""), request.form.get("year", type=int))
+    try:
+        rating = parse_rating(request.form.get("rating"))
+    except ValueError:
+        return render_detail(movie, "Die Bewertung muss eine Zahl zwischen 0 und 10 sein."), 400
+    updated = with_rating(movie, rating)
+    store_movies(current_app.config, replace_movie(current_movies(), updated))
+    return redirect(url_for("main.movie_detail", year=updated.year, title=updated.title))
 
 
 @main.route("/stats")
@@ -92,7 +148,7 @@ def stats():
     Returns:
         str: Die gerenderte Statistikseite.
     """
-    all_movies = current_app.config["IMPORT_RESULT"].movies
+    all_movies = current_movies()
     sort = request.args.get("sort", "count")
     return render_template(
         "stats.html",

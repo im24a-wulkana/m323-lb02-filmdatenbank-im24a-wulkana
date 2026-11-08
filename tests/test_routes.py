@@ -21,7 +21,7 @@ def test_index_shows_import_summary_and_errors(tmp_path):
 
     page = create_app(path).test_client().get("/").get_data(as_text=True)
 
-    assert "1 Filme importiert" in page
+    assert "1 Filme importiert, 0 Duplikate entfernt, 1 Fehler" in page
     assert "Zeile 3" in page
 
 

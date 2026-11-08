@@ -85,6 +85,14 @@ th, td {
     margin: 0;
 }
 
+.features li {
+    margin-bottom: 0.25rem;
+}
+
+td a, p a, li a {
+    color: #1f5fbf;
+}
+
 .summary {
     color: #52606d;
 }

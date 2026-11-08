@@ -103,6 +103,33 @@ def import_movies(text):
     )
 
 
+def import_summary(result):
+    """
+    Beschreibt ein Importergebnis in einem Satz.
+
+    Args:
+        result (ImportResult): Das Ergebnis des Imports.
+
+    Returns:
+        str: Die Zusammenfassung, z.B. "105 Filme importiert, 0 Duplikate entfernt, 0 Fehler".
+    """
+    return (f"{len(result.movies)} Filme importiert, {result.duplicates} Duplikate entfernt, "
+            f"{len(result.errors)} Fehler")
+
+
+def log_import(result, logger):
+    """
+    Schreibt ein Importergebnis ins Log.
+
+    Args:
+        result (ImportResult): Das Ergebnis des Imports.
+        logger (logging.Logger): Das Log, in das geschrieben wird.
+    """
+    logger.info(import_summary(result))
+    for error in result.errors:
+        logger.warning("Zeile %s: %s", error.line, error.message)
+
+
 def load_movies(path):
     """
     Importiert Filme aus einer CSV-Datei.

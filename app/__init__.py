@@ -4,9 +4,8 @@ from pathlib import Path
 
 from flask import Flask
 
-from app.catalog import make_lookup
-from app.importer import load_movies
-from app.routes import main
+from app.importer import load_movies, log_import
+from app.routes import main, store_movies
 
 DEFAULT_DATA_PATH = Path(__file__).parent.parent / "data" / "movies.csv"
 
@@ -23,7 +22,8 @@ def create_app(data_path=DEFAULT_DATA_PATH):
     """
     app = Flask(__name__)
     result = load_movies(data_path)
+    log_import(result, app.logger)
     app.config["IMPORT_RESULT"] = result
-    app.config["FIND_MOVIE"] = make_lookup(result.movies)
+    store_movies(app.config, result.movies)
     app.register_blueprint(main)
     return app

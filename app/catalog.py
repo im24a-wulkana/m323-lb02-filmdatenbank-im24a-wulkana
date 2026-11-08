@@ -156,6 +156,21 @@ def make_lookup(movies):
     return lookup
 
 
+def replace_movie(movies, updated):
+    """
+    Ersetzt einen Film durch eine neue Version.
+
+    Args:
+        movies (Iterable[Movie]): Die Filme.
+        updated (Movie): Die neue Version, gefunden über Titel und Jahr.
+
+    Returns:
+        tuple[Movie, ...]: Ein neues Tupel, alle anderen Filme sind dieselben Objekte.
+    """
+    key = movie_key(updated)
+    return tuple(map(lambda movie: updated if movie_key(movie) == key else movie, movies))
+
+
 def all_genres(movies):
     """
     Liefert alle vorkommenden Genres.

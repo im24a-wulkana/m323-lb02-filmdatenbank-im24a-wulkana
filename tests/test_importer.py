@@ -1,7 +1,10 @@
 """Tests für den CSV-Import."""
 
+import logging
+
 from app import DEFAULT_DATA_PATH
-from app.importer import RowError, import_movies, load_movies, remove_duplicates
+from app.importer import (RowError, import_movies, import_summary, load_movies, log_import,
+                          remove_duplicates)
 from app.models import Movie
 
 HEADER = "title,year,genres,director,runtime,rating\n"
@@ -68,6 +71,22 @@ def test_import_of_empty_text_returns_empty_result():
     assert result.movies == ()
     assert result.errors == ()
     assert result.duplicates == 0
+
+
+def test_import_summary_describes_result():
+    result = import_movies(HEADER + HEAT + HEAT + "Alien,kein Jahr,Horror,Ridley Scott,117,8.5\n")
+
+    assert import_summary(result) == "1 Filme importiert, 1 Duplikate entfernt, 1 Fehler"
+
+
+def test_log_import_writes_summary_and_errors(caplog):
+    result = import_movies(HEADER + HEAT + "Alien,kein Jahr,Horror,Ridley Scott,117,8.5\n")
+
+    with caplog.at_level(logging.INFO):
+        log_import(result, logging.getLogger("test"))
+
+    assert caplog.messages[0] == "1 Filme importiert, 0 Duplikate entfernt, 1 Fehler"
+    assert caplog.messages[1].startswith("Zeile 3:")
 
 
 def test_load_movies_ignores_byte_order_mark(tmp_path):

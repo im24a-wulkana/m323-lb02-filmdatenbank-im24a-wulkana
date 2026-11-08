@@ -3,7 +3,14 @@
 {% block content %}
 <h1>Filmdatenbank</h1>
 <p>Filme durchsuchen, filtern und auswerten.</p>
-<p>{{ result.movies | length }} Filme importiert, {{ result.duplicates }} Duplikate entfernt.</p>
+<p class="summary">{{ summary }}.</p>
+
+<ul class="features">
+    <li><a href="{{ url_for('main.movies') }}">Katalog</a>: Suche nach Titel oder Regie, Filter nach Genre und Bewertung, Sortierung und CSV-Export</li>
+    <li><a href="{{ url_for('main.stats') }}">Statistik</a>: Kennzahlen pro Genre, Jahrzehnt und Regie</li>
+    <li>Detailseite eines Films: ähnliche Filme und eigene Bewertung</li>
+</ul>
+
 {% if result.errors %}
 <h2>Importfehler</h2>
 <ul>

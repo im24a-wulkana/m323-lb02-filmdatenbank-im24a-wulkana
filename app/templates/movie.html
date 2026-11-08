@@ -17,6 +17,19 @@
     <dd class="rating">{{ movie.rating }}</dd>
 </dl>
 
+<form class="filters" method="post" action="{{ url_for('main.update_rating') }}">
+    <input type="hidden" name="title" value="{{ movie.title }}">
+    <input type="hidden" name="year" value="{{ movie.year }}">
+    <label>Eigene Bewertung
+        <input type="number" name="rating" min="0" max="10" step="0.1" value="{{ movie.rating }}" required>
+    </label>
+    <button type="submit">Speichern</button>
+</form>
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+<p class="summary">Geänderte Bewertungen gelten bis zum Neustart der App.</p>
+
 <h2>Ähnliche Filme</h2>
 {% if recommendations %}
 <table>

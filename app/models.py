@@ -1,6 +1,6 @@
 """Datenmodell der Filmdatenbank."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 MIN_YEAR = 1888
 MAX_YEAR = 2100
@@ -29,6 +29,20 @@ def movie_key(movie):
         tuple[str, int]: Der Titel ohne Grossschreibung und das Jahr.
     """
     return movie.title.casefold(), movie.year
+
+
+def with_rating(movie, rating):
+    """
+    Liefert eine Kopie des Films mit neuer Bewertung.
+
+    Args:
+        movie (Movie): Der ursprüngliche Film, er bleibt unverändert.
+        rating (float): Die neue Bewertung.
+
+    Returns:
+        Movie: Ein neuer Film mit allen anderen Feldern des Originals.
+    """
+    return replace(movie, rating=rating)
 
 
 def parse_text(value):
