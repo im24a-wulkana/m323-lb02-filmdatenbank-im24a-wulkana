@@ -1,0 +1,106 @@
+title,year,genres,director,runtime,rating
+The Shawshank Redemption,1994,Drama,Frank Darabont,142,9.3
+The Godfather,1972,Drama|Krimi,Francis Ford Coppola,175,9.2
+The Dark Knight,2008,Action|Krimi|Drama,Christopher Nolan,152,9.0
+The Godfather Part II,1974,Drama|Krimi,Francis Ford Coppola,202,9.0
+12 Angry Men,1957,Drama|Krimi,Sidney Lumet,96,9.0
+Schindler's List,1993,Drama|Geschichte,Steven Spielberg,195,9.0
+The Lord of the Rings: The Return of the King,2003,Abenteuer|Fantasy|Drama,Peter Jackson,201,9.0
+Pulp Fiction,1994,Krimi|Drama,Quentin Tarantino,154,8.9
+The Lord of the Rings: The Fellowship of the Ring,2001,Abenteuer|Fantasy|Drama,Peter Jackson,178,8.9
+"The Good, the Bad and the Ugly",1966,Western|Abenteuer,Sergio Leone,178,8.8
+Forrest Gump,1994,Drama|Romanze,Robert Zemeckis,142,8.8
+Fight Club,1999,Drama,David Fincher,139,8.8
+The Lord of the Rings: The Two Towers,2002,Abenteuer|Fantasy|Drama,Peter Jackson,179,8.8
+Inception,2010,Action|Science-Fiction|Abenteuer,Christopher Nolan,148,8.8
+The Empire Strikes Back,1980,Action|Abenteuer|Science-Fiction,Irvin Kershner,124,8.7
+The Matrix,1999,Action|Science-Fiction,Lana Wachowski,136,8.7
+Goodfellas,1990,Krimi|Drama,Martin Scorsese,145,8.7
+One Flew Over the Cuckoo's Nest,1975,Drama,Milos Forman,133,8.7
+Se7en,1995,Krimi|Drama|Thriller,David Fincher,127,8.6
+Seven Samurai,1954,Action|Drama,Akira Kurosawa,207,8.6
+It's a Wonderful Life,1946,Drama|Familie|Fantasy,Frank Capra,130,8.6
+The Silence of the Lambs,1991,Krimi|Drama|Thriller,Jonathan Demme,118,8.6
+Saving Private Ryan,1998,Drama|Krieg,Steven Spielberg,169,8.6
+City of God,2002,Krimi|Drama,Fernando Meirelles,130,8.6
+Life Is Beautiful,1997,Komödie|Drama|Krieg,Roberto Benigni,116,8.6
+Interstellar,2014,Abenteuer|Drama|Science-Fiction,Christopher Nolan,169,8.7
+The Green Mile,1999,Krimi|Drama|Fantasy,Frank Darabont,189,8.6
+Star Wars,1977,Action|Abenteuer|Science-Fiction,George Lucas,121,8.6
+Terminator 2: Judgment Day,1991,Action|Science-Fiction,James Cameron,137,8.6
+Back to the Future,1985,Abenteuer|Komödie|Science-Fiction,Robert Zemeckis,116,8.5
+Spirited Away,2001,Animation|Abenteuer|Familie,Hayao Miyazaki,125,8.6
+The Pianist,2002,Drama|Krieg|Geschichte,Roman Polanski,150,8.5
+Psycho,1960,Horror|Thriller,Alfred Hitchcock,109,8.5
+Parasite,2019,Drama|Thriller,Bong Joon-ho,132,8.5
+Gladiator,2000,Action|Abenteuer|Drama,Ridley Scott,155,8.5
+The Lion King,1994,Animation|Abenteuer|Drama,Roger Allers,88,8.5
+Leon: The Professional,1994,Action|Krimi|Drama,Luc Besson,110,8.5
+American History X,1998,Drama,Tony Kaye,119,8.5
+The Departed,2006,Krimi|Drama|Thriller,Martin Scorsese,151,8.5
+Whiplash,2014,Drama|Musik,Damien Chazelle,106,8.5
+The Prestige,2006,Drama|Science-Fiction|Thriller,Christopher Nolan,130,8.5
+The Usual Suspects,1995,Krimi|Drama|Thriller,Bryan Singer,106,8.5
+Casablanca,1942,Drama|Romanze|Krieg,Michael Curtiz,102,8.5
+Harakiri,1962,Action|Drama|Geschichte,Masaki Kobayashi,133,8.6
+The Intouchables,2011,Biografie|Komödie|Drama,Olivier Nakache,112,8.5
+Modern Times,1936,Komödie|Drama,Charlie Chaplin,87,8.5
+Cinema Paradiso,1988,Drama|Romanze,Giuseppe Tornatore,155,8.5
+Rear Window,1954,Thriller|Krimi,Alfred Hitchcock,112,8.5
+Alien,1979,Horror|Science-Fiction,Ridley Scott,117,8.5
+Apocalypse Now,1979,Drama|Krieg,Francis Ford Coppola,147,8.4
+Memento,2000,Thriller|Krimi,Christopher Nolan,113,8.4
+Raiders of the Lost Ark,1981,Action|Abenteuer,Steven Spielberg,115,8.4
+Django Unchained,2012,Drama|Western,Quentin Tarantino,165,8.5
+WALL-E,2008,Animation|Abenteuer|Familie,Andrew Stanton,98,8.4
+The Lives of Others,2006,Drama|Thriller,Florian Henckel von Donnersmarck,137,8.4
+Sunset Boulevard,1950,Drama,Billy Wilder,110,8.4
+Paths of Glory,1957,Drama|Krieg,Stanley Kubrick,88,8.4
+The Shining,1980,Horror|Drama,Stanley Kubrick,146,8.4
+Dr. Strangelove,1964,Komödie|Krieg,Stanley Kubrick,95,8.4
+Aliens,1986,Action|Abenteuer|Science-Fiction,James Cameron,137,8.4
+Princess Mononoke,1997,Animation|Abenteuer|Fantasy,Hayao Miyazaki,134,8.3
+Oldboy,2003,Action|Drama|Thriller,Park Chan-wook,120,8.3
+Coco,2017,Animation|Abenteuer|Familie,Lee Unkrich,105,8.4
+Amadeus,1984,Biografie|Drama|Musik,Milos Forman,160,8.4
+Das Boot,1981,Drama|Krieg|Abenteuer,Wolfgang Petersen,149,8.4
+Toy Story,1995,Animation|Abenteuer|Komödie,John Lasseter,81,8.3
+Good Will Hunting,1997,Drama|Romanze,Gus Van Sant,126,8.3
+Reservoir Dogs,1992,Krimi|Thriller,Quentin Tarantino,99,8.3
+Requiem for a Dream,2000,Drama,Darren Aronofsky,102,8.3
+2001: A Space Odyssey,1968,Abenteuer|Science-Fiction,Stanley Kubrick,149,8.3
+Vertigo,1958,Thriller|Romanze,Alfred Hitchcock,128,8.3
+Inglourious Basterds,2009,Abenteuer|Drama|Krieg,Quentin Tarantino,153,8.4
+Eternal Sunshine of the Spotless Mind,2004,Drama|Romanze|Science-Fiction,Michel Gondry,108,8.3
+A Clockwork Orange,1971,Krimi|Drama|Science-Fiction,Stanley Kubrick,136,8.3
+Taxi Driver,1976,Krimi|Drama,Martin Scorsese,114,8.2
+Citizen Kane,1941,Drama,Orson Welles,119,8.3
+Lawrence of Arabia,1962,Abenteuer|Biografie|Drama,David Lean,218,8.3
+Full Metal Jacket,1987,Drama|Krieg,Stanley Kubrick,116,8.2
+Heat,1995,Action|Krimi|Drama,Michael Mann,170,8.3
+Up,2009,Animation|Abenteuer|Komödie,Pete Docter,96,8.3
+Amélie,2001,Komödie|Romanze,Jean-Pierre Jeunet,122,8.3
+Die Hard,1988,Action|Thriller,John McTiernan,132,8.2
+Jaws,1975,Abenteuer|Thriller,Steven Spielberg,124,8.1
+No Country for Old Men,2007,Krimi|Drama|Thriller,Joel Coen,122,8.2
+There Will Be Blood,2007,Drama,Paul Thomas Anderson,158,8.2
+Blade Runner,1982,Action|Drama|Science-Fiction,Ridley Scott,117,8.1
+The Truman Show,1998,Komödie|Drama,Peter Weir,103,8.2
+Mad Max: Fury Road,2015,Action|Abenteuer|Science-Fiction,George Miller,120,8.1
+The Grand Budapest Hotel,2014,Abenteuer|Komödie|Krimi,Wes Anderson,99,8.1
+Pan's Labyrinth,2006,Drama|Fantasy|Krieg,Guillermo del Toro,118,8.2
+My Neighbor Totoro,1988,Animation|Familie|Fantasy,Hayao Miyazaki,86,8.1
+Finding Nemo,2003,Animation|Abenteuer|Komödie,Andrew Stanton,100,8.2
+Ratatouille,2007,Animation|Familie|Komödie,Brad Bird,111,8.1
+Jurassic Park,1993,Action|Abenteuer|Science-Fiction,Steven Spielberg,127,8.2
+The Big Lebowski,1998,Komödie|Krimi,Joel Coen,117,8.1
+Fargo,1996,Krimi|Thriller,Joel Coen,98,8.1
+Arrival,2016,Drama|Science-Fiction,Denis Villeneuve,116,7.9
+Dune,2021,Abenteuer|Drama|Science-Fiction,Denis Villeneuve,155,8.0
+Get Out,2017,Horror|Thriller,Jordan Peele,104,7.8
+Her,2013,Drama|Romanze|Science-Fiction,Spike Jonze,126,8.0
+La La Land,2016,Komödie|Drama|Musik,Damien Chazelle,128,8.0
+The Social Network,2010,Biografie|Drama,David Fincher,120,7.8
+Spotlight,2015,Biografie|Krimi|Drama,Tom McCarthy,129,8.1
+Run Lola Run,1998,Krimi|Thriller,Tom Tykwer,80,7.6
+Metropolis,1927,Drama|Science-Fiction,Fritz Lang,153,8.3

@@ -18,6 +18,10 @@ flask --app app run --debug
 
 Die Applikation läuft danach unter http://127.0.0.1:5000.
 
+## Daten
+
+`data/movies.csv` enthält reale Filme. Titel, Jahr, Genres, Regie und Laufzeit sind von Hand erfasst, die Bewertungen sind Richtwerte auf einer Skala von 0 bis 10 und keine offiziellen Werte einer Filmplattform.
+
 ## Tests
 
 ```bash

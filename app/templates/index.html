@@ -3,4 +3,13 @@
 {% block content %}
 <h1>Filmdatenbank</h1>
 <p>Filme durchsuchen, filtern und auswerten.</p>
+<p>{{ result.movies | length }} Filme importiert, {{ result.duplicates }} Duplikate entfernt.</p>
+{% if result.errors %}
+<h2>Importfehler</h2>
+<ul>
+    {% for error in result.errors %}
+    <li>Zeile {{ error.line }}: {{ error.message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 """Routen der Filmdatenbank."""
 
-from flask import Blueprint, render_template
+from flask import Blueprint, current_app, render_template
 
 main = Blueprint("main", __name__)
 
@@ -13,4 +13,4 @@ def index():
     Returns:
         str: Die gerenderte Startseite.
     """
-    return render_template("index.html")
+    return render_template("index.html", result=current_app.config["IMPORT_RESULT"])
