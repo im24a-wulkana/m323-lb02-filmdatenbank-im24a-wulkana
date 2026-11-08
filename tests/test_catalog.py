@@ -1,6 +1,6 @@
 """Tests für die Katalogfunktionen."""
 
-from app.catalog import (CatalogQuery, active_filters, all_genres, average_rating,
+from app.catalog import (CatalogQuery, active_filters, all_genres, average_rating, make_lookup,
                          parse_optional_float, query_from_args, search_catalog)
 from app.models import Movie
 
@@ -51,3 +51,17 @@ def test_average_rating():
 
 def test_all_genres_unique_and_sorted():
     assert all_genres(MOVIES) == ("Action", "Horror", "Krimi")
+
+
+def test_lookup_finds_movie_ignoring_case():
+    lookup = make_lookup(MOVIES)
+
+    assert lookup("fargo", 1996) == FARGO
+    assert lookup("Fargo", 1997) is None
+    assert make_lookup(())("Fargo", 1996) is None
+
+
+def test_lookup_returns_first_of_equal_keys():
+    remake = Movie("FARGO", 1996, ("Drama",), "Andere Regie", 90, 5.0)
+
+    assert make_lookup((FARGO, remake))("Fargo", 1996) == FARGO

@@ -1,8 +1,9 @@
 """Routen der Filmdatenbank."""
 
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, abort, current_app, render_template, request
 
 from app.catalog import SORT_OPTIONS, all_genres, average_rating, query_from_args, search_catalog
+from app.recommender import recommend
 from app.statistics import (GROUP_SORTS, decade_report, director_report, genre_report,
                             overview)
 
@@ -44,6 +45,25 @@ def movies():
         genres=all_genres(all_movies),
         sort_options=SORT_OPTIONS,
     )
+
+
+@main.route("/movies/<int:year>/<path:title>")
+def movie_detail(year, title):
+    """
+    Zeigt einen Film mit ähnlichen Filmen an.
+
+    Args:
+        year (int): Das Erscheinungsjahr.
+        title (str): Der Titel, die Grossschreibung zählt nicht.
+
+    Returns:
+        str: Die gerenderte Detailseite oder 404, wenn der Film fehlt.
+    """
+    movie = current_app.config["FIND_MOVIE"](title, year)
+    if movie is None:
+        abort(404)
+    all_movies = current_app.config["IMPORT_RESULT"].movies
+    return render_template("movie.html", movie=movie, recommendations=recommend(all_movies, movie))
 
 
 @main.route("/stats")

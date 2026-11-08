@@ -71,6 +71,20 @@ th, td {
     vertical-align: top;
 }
 
+.details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1rem;
+}
+
+.details dt {
+    font-weight: 600;
+}
+
+.details dd {
+    margin: 0;
+}
+
 .summary {
     color: #52606d;
 }

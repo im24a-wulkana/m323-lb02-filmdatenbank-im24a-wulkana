@@ -18,6 +18,19 @@ class Movie:
     rating: float
 
 
+def movie_key(movie):
+    """
+    Liefert den Schlüssel, der einen Film eindeutig bestimmt.
+
+    Args:
+        movie (Movie): Der Film.
+
+    Returns:
+        tuple[str, int]: Der Titel ohne Grossschreibung und das Jahr.
+    """
+    return movie.title.casefold(), movie.year
+
+
 def parse_text(value):
     """
     Liest einen Pflichttext.

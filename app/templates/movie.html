@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }} · Filmdatenbank{% endblock %}
+
+{% block content %}
+<p><a href="{{ url_for('main.movies') }}">← Zurück zum Katalog</a></p>
+<h1>{{ movie.title }} <span class="summary">({{ movie.year }})</span></h1>
+
+<dl class="details">
+    <dt>Genres</dt>
+    <dd>{{ movie.genres | join(", ") }}</dd>
+    <dt>Regie</dt>
+    <dd>{{ movie.director }}</dd>
+    <dt>Laufzeit</dt>
+    <dd>{{ movie.runtime }} min</dd>
+    <dt>Bewertung</dt>
+    <dd class="rating">{{ movie.rating }}</dd>
+</dl>
+
+<h2>Ähnliche Filme</h2>
+{% if recommendations %}
+<table>
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Jahr</th>
+            <th>Genres</th>
+            <th>Regie</th>
+            <th>Ähnlichkeit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recommendation in recommendations %}
+        <tr>
+            <td class="recommendation">
+                <a href="{{ url_for('main.movie_detail', year=recommendation.movie.year, title=recommendation.movie.title) }}">{{ recommendation.movie.title }}</a>
+            </td>
+            <td>{{ recommendation.movie.year }}</td>
+            <td>{{ recommendation.movie.genres | join(", ") }}</td>
+            <td>{{ recommendation.movie.director }}</td>
+            <td class="score">{{ recommendation.score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="summary">Keine ähnlichen Filme gefunden.</p>
+{% endif %}
+{% endblock %}

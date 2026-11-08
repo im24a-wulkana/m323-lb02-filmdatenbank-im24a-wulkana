@@ -52,7 +52,7 @@
     <tbody>
         {% for movie in movies %}
         <tr>
-            <td class="title">{{ movie.title }}</td>
+            <td class="title"><a href="{{ url_for('main.movie_detail', year=movie.year, title=movie.title) }}">{{ movie.title }}</a></td>
             <td>{{ movie.year }}</td>
             <td>{{ movie.genres | join(", ") }}</td>
             <td>{{ movie.director }}</td>

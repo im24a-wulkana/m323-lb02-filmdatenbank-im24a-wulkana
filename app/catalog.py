@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from functools import reduce
 from itertools import chain
 
+from app.models import movie_key
+
 SORT_OPTIONS = (
     ("rating", "Bewertung"),
     ("year", "Jahr"),
@@ -133,6 +135,24 @@ def average_rating(movies):
     ratings = map(lambda movie: movie.rating, movies)
     total = reduce(lambda subtotal, rating: subtotal + rating, ratings, 0.0)
     return round(total / len(movies), 1)
+
+
+def make_lookup(movies):
+    """
+    Erstellt eine Suchfunktion für einzelne Filme.
+
+    Args:
+        movies (Sequence[Movie]): Die Filme, in denen gesucht wird.
+
+    Returns:
+        Callable[[str, int], Movie | None]: Liefert zu Titel und Jahr den ersten
+        passenden Film oder None. Die Grossschreibung des Titels zählt nicht.
+    """
+    def lookup(title, year):
+        wanted = (title.casefold(), year)
+        return next((movie for movie in movies if movie_key(movie) == wanted), None)
+
+    return lookup
 
 
 def all_genres(movies):

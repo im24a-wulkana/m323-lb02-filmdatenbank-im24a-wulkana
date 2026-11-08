@@ -4,6 +4,7 @@ from pathlib import Path
 
 from flask import Flask
 
+from app.catalog import make_lookup
 from app.importer import load_movies
 from app.routes import main
 
@@ -21,6 +22,8 @@ def create_app(data_path=DEFAULT_DATA_PATH):
         Flask: Die fertig konfigurierte Applikation.
     """
     app = Flask(__name__)
-    app.config["IMPORT_RESULT"] = load_movies(data_path)
+    result = load_movies(data_path)
+    app.config["IMPORT_RESULT"] = result
+    app.config["FIND_MOVIE"] = make_lookup(result.movies)
     app.register_blueprint(main)
     return app
