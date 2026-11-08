@@ -148,9 +148,10 @@ def make_lookup(movies):
         Callable[[str, int], Movie | None]: Liefert zu Titel und Jahr den ersten
         passenden Film oder None. Die Grossschreibung des Titels zählt nicht.
     """
+    index = {movie_key(movie): movie for movie in reversed(movies)}
+
     def lookup(title, year):
-        wanted = (title.casefold(), year)
-        return next((movie for movie in movies if movie_key(movie) == wanted), None)
+        return index.get((title.casefold(), year))
 
     return lookup
 

@@ -3,10 +3,9 @@
 import csv
 import io
 from dataclasses import dataclass
-from functools import reduce
 from pathlib import Path
 
-from app.models import Movie, movie_from_row
+from app.models import Movie, movie_from_row, movie_key
 
 
 @dataclass(frozen=True)
@@ -65,39 +64,12 @@ def is_error(result):
     return isinstance(result, RowError)
 
 
-def is_same_movie(first, second):
-    """
-    Prüft, ob zwei Filme denselben Titel und dasselbe Jahr haben.
-
-    Args:
-        first (Movie): Der erste Film.
-        second (Movie): Der zweite Film.
-
-    Returns:
-        bool: True, wenn es derselbe Film ist. Die Grossschreibung zählt nicht.
-    """
-    return first.year == second.year and first.title.casefold() == second.title.casefold()
-
-
-def keep_first(unique, movie):
-    """
-    Hängt einen Film an, falls er noch nicht vorkommt.
-
-    Args:
-        unique (tuple[Movie, ...]): Die bisher eindeutigen Filme.
-        movie (Movie): Der nächste Film.
-
-    Returns:
-        tuple[Movie, ...]: Die eindeutigen Filme inklusive des neuen Films.
-    """
-    if any(is_same_movie(known, movie) for known in unique):
-        return unique
-    return (*unique, movie)
-
-
 def remove_duplicates(movies):
     """
     Entfernt doppelte Filme, das erste Vorkommen bleibt erhalten.
+
+    Das Dictionary ist lokal und wird nur hier verändert. Von aussen bleibt die
+    Funktion pure: gleiche Eingabe, gleiche Ausgabe, keine Nebeneffekte.
 
     Args:
         movies (Iterable[Movie]): Die Filme.
@@ -105,7 +77,10 @@ def remove_duplicates(movies):
     Returns:
         tuple[Movie, ...]: Die Filme ohne Duplikate in der ursprünglichen Reihenfolge.
     """
-    return reduce(keep_first, movies, ())
+    first_by_key = {}
+    for movie in movies:
+        first_by_key.setdefault(movie_key(movie), movie)
+    return tuple(first_by_key.values())
 
 
 def import_movies(text):
