@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Katalog · Filmdatenbank{% endblock %}
+
+{% block content %}
+<h1>Katalog</h1>
+
+<form class="filters" method="get">
+    <label>Suche
+        <input type="search" name="q" value="{{ request.args.get('q', '') }}" placeholder="Titel oder Regie">
+    </label>
+    <label>Genre
+        <select name="genre">
+            <option value="">Alle</option>
+            {% for genre in genres %}
+            <option value="{{ genre }}" {% if request.args.get('genre') == genre %}selected{% endif %}>{{ genre }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Mindestbewertung
+        <input type="number" name="min_rating" min="0" max="10" step="0.1" value="{{ request.args.get('min_rating', '') }}">
+    </label>
+    <label>Sortierung
+        <select name="sort">
+            {% for value, label in sort_options %}
+            <option value="{{ value }}" {% if request.args.get('sort', 'rating') == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Richtung
+        <select name="order">
+            <option value="desc">Absteigend</option>
+            <option value="asc" {% if request.args.get('order') == 'asc' %}selected{% endif %}>Aufsteigend</option>
+        </select>
+    </label>
+    <button type="submit">Anwenden</button>
+</form>
+
+{% if movies %}
+<p class="summary">{{ movies | length }} Filme · Durchschnitt {{ average }}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Jahr</th>
+            <th>Genres</th>
+            <th>Regie</th>
+            <th>Laufzeit</th>
+            <th>Bewertung</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+        <tr>
+            <td class="title">{{ movie.title }}</td>
+            <td>{{ movie.year }}</td>
+            <td>{{ movie.genres | join(", ") }}</td>
+            <td>{{ movie.director }}</td>
+            <td>{{ movie.runtime }} min</td>
+            <td>{{ movie.rating }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="summary">Keine Filme gefunden.</p>
+{% endif %}
+{% endblock %}
